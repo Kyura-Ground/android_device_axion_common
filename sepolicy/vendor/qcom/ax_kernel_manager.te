@@ -1,7 +1,8 @@
-allow system_server vendor_sysfs_kgsl:dir { getattr search open read };
-allow system_server vendor_sysfs_kgsl:file rw_file_perms;
-allow system_server vendor_sysfs_kgsl:lnk_file rw_file_perms;
-
+# The sysfs_* types below are renamed to vendor_sysfs_* by
+# device/lineage/sepolicy/qcom/sepolicy.mk on non-legacy QCOM devices.
+# The legacy-um policy defines vendor_sysfs_kgsl_gpuclk directly, so keep
+# that one explicit; do not add vendor-prefixed duplicates of the other
+# sysfs types, which are only defined on non-legacy devices.
 allow system_server sysfs_kgsl:dir { getattr search open read };
 allow system_server sysfs_kgsl:file rw_file_perms;
 allow system_server sysfs_kgsl:lnk_file rw_file_perms;
@@ -13,10 +14,6 @@ ifdef(`HAS_KGSL_MAX_GPUCLK', `
 allow system_server vendor_sysfs_kgsl_max_gpuclk:file rw_file_perms;
 allow system_server vendor_sysfs_kgsl_max_gpuclk:lnk_file rw_file_perms;
 ')
-
-allow system_server vendor_sysfs_devfreq:dir { getattr search open read };
-allow system_server vendor_sysfs_devfreq:file rw_file_perms;
-allow system_server vendor_sysfs_devfreq:lnk_file rw_file_perms;
 
 allow system_server sysfs_devfreq:dir { getattr search open read };
 allow system_server sysfs_devfreq:file rw_file_perms;
